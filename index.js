@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about',(req, res) => {
-    // res.send('Hello Myme');
+    // res.send('Hello Myme');jkk
     res.sendFile(path.join(__dirname,'webPage', 'about.html'));
 });
 
