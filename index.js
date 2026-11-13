@@ -5,6 +5,8 @@ const path = require('path');
 
 
 
+
+
 app.get('/', (req, res) => {
     console.log('path:', path.join(__dirname, 'index.html'));
     // res.send('Hello MyLoev');
