@@ -1,0 +1,232 @@
+<%
+	const productCount = categories.reduce((total, category) => total + category.products.length, 0);
+	const inStockCount = categories.reduce((total, category) => (
+		total + category.products.filter((product) => product.quantity > 0).length
+	), 0);
+	const sampleCount = categories.reduce((total, category) => (
+		total + category.products.filter((product) => product.isSample).length
+	), 0);
+	const categoryIcons = {
+		routers: '⌁',
+		wireless: '◉',
+		switches: '▤',
+		cabling: '⌁',
+		power: 'ϟ',
+		racks: '▥',
+		optics: '◈',
+	};
+%>
+
+<div class="network-catalog">
+	<section class="catalog-hero">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb catalog-breadcrumb">
+					<li class="breadcrumb-item"><a href="/">หน้าแรก</a></li>
+					<li class="breadcrumb-item active" aria-current="page">หมวดหมู่สินค้า</li>
+				</ol>
+			</nav>
+			<div class="row align-items-end g-4">
+				<div class="col-lg-7">
+					<div class="catalog-eyebrow"><span></span> Network equipment</div>
+					<h1>อุปกรณ์เครือข่าย<br>ครบในที่เดียว</h1>
+					<p class="catalog-lead">เลือกดูสินค้าตามหมวดหมู่ พร้อมเช็กจำนวนคงเหลือก่อนสอบถามทีมงาน</p>
+					<a class="btn catalog-hero-button rounded-pill px-4 py-3" href="#catalog-categories">เลือกดูหมวดหมู่ <span aria-hidden="true">↓</span></a>
+				</div>
+				<div class="col-lg-5">
+					<div class="catalog-stats">
+						<div class="catalog-stat">
+							<strong><%= categories.length %></strong>
+							<span>หมวดหมู่</span>
+						</div>
+						<div class="catalog-stat">
+							<strong><%= productCount %></strong>
+							<span>รายการสินค้า</span>
+						</div>
+						<div class="catalog-stat">
+							<strong><%= inStockCount %></strong>
+							<span>พร้อมจำหน่าย</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container catalog-content" id="catalog-categories">
+		<div class="catalog-section-heading">
+			<div>
+				<div class="section-kicker mb-2">BROWSE BY CATEGORY</div>
+				<h2 class="section-title mb-0">เลือกหมวดหมู่สินค้า</h2>
+			</div>
+			<a href="/product" class="catalog-all-link">ดูสินค้าทั้งหมด <span aria-hidden="true">→</span></a>
+		</div>
+		<div class="sample-notice" role="note">
+			<strong>ข้อมูลตัวอย่าง:</strong> มีสินค้าใหม่ <%= sampleCount %> รายการ ราคาและจำนวนคงเหลือเป็นข้อมูลจำลอง
+		</div>
+
+		<nav class="category-shortcuts" aria-label="ลัดไปยังหมวดหมู่สินค้า">
+			<% categories.forEach((category) => { %>
+				<a href="#<%= category.id %>">
+					<span aria-hidden="true"><%= categoryIcons[category.id] %></span>
+					<%= category.name %>
+					<small><%= category.products.length %></small>
+				</a>
+			<% }); %>
+		</nav>
+
+		<% categories.forEach((category, index) => { %>
+			<section class="catalog-category" id="<%= category.id %>">
+				<div class="category-heading">
+					<div class="category-heading-icon" aria-hidden="true"><%= categoryIcons[category.id] %></div>
+					<div>
+						<p class="category-index">CATEGORY <%= String(index + 1).padStart(2, '0') %></p>
+						<h2><%= category.name %></h2>
+					</div>
+					<span class="category-count"><%= category.products.length %> รายการ</span>
+				</div>
+
+				<div class="row g-4">
+					<% category.products.forEach((product) => { %>
+						<div class="col-sm-6 col-xl-4">
+							<article class="equipment-card h-100">
+								<div class="equipment-image">
+									<img src="<%= product.image %>" alt="<%= product.imageAlt %>" loading="lazy" decoding="async">
+									<span class="equipment-id"><%= product.id %></span>
+									<% if (product.isSample) { %>
+										<span class="sample-flag">ข้อมูลตัวอย่าง</span>
+									<% } %>
+									<% if (product.quantity > 0) { %>
+										<span class="stock-pill is-available"><span></span> มีสินค้า</span>
+									<% } else { %>
+										<span class="stock-pill is-unavailable"><span></span> สินค้าหมด</span>
+									<% } %>
+								</div>
+								<div class="equipment-details">
+									<h3><%= product.name %></h3>
+									<div class="equipment-footer">
+										<div>
+											<span class="price-caption">ราคา</span>
+											<p class="equipment-price">฿<%= product.price.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+										</div>
+										<div class="stock-count">
+											<span>คงเหลือ</span>
+											<strong><%= product.quantity %> <small>ชิ้น</small></strong>
+										</div>
+									</div>
+									<a class="equipment-action" href="tel:025550199">สอบถามสินค้า <span aria-hidden="true">→</span></a>
+								</div>
+							</article>
+						</div>
+					<% }); %>
+				</div>
+			</section>
+		<% }); %>
+
+		<p class="image-note">ภาพเป็นภาพประกอบอุปกรณ์ประเภทเดียวกัน ไม่ใช่ภาพถ่ายของสินค้ารุ่นจริงในรายการ</p>
+		<details class="image-credits">
+			<summary>เครดิตภาพและใบอนุญาต</summary>
+			<p>ภาพถูกปรับขนาดเพื่อแสดงผลในแคตตาล็อก โดยไม่ได้แก้ไขเนื้อหาภาพ</p>
+			<ul>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Network_router_ZyXel_USG20.jpg" target="_blank" rel="noopener noreferrer">Network router ZyXel USG20</a> โดย hystiff — <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Outdoors_Wireless_Access_Point.jpg" target="_blank" rel="noopener noreferrer">Outdoors Wireless Access Point</a> โดย Mbrickn — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Peabird_Ethernet_switch_in_2003.jpg" target="_blank" rel="noopener noreferrer">Peabird Ethernet switch in 2003</a> โดย Syced — <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Patch_cable_with_RJ45_connector.jpg" target="_blank" rel="noopener noreferrer">Patch cable with RJ45 connector</a> โดย www.heimnetzwerke.net — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Optical_fiber_connectors-optical_patch_cable-01ASD.jpg" target="_blank" rel="noopener noreferrer">Optical fiber connectors-optical patch cable</a> โดย Asurnipal — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:RIT_CSH_-_Fury%27s_UPS_(183855984).jpg" target="_blank" rel="noopener noreferrer">RIT CSH - Fury's UPS</a> โดย Jon Parise — <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:19-inch_rackmount_Ethernet_switches_and_patch_panels.jpg" target="_blank" rel="noopener noreferrer">19-inch rackmount Ethernet switches and patch panels</a> โดย Dsimic — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></li>
+				<li><a href="https://commons.wikimedia.org/wiki/File:Cisco_SFP-10G-SR_10GBASE-SR_SFP%2B_optical_transceiver_modules_(lot)_-_overview.jpg" target="_blank" rel="noopener noreferrer">Cisco SFP-10G-SR optical transceiver modules</a> โดย ITEagle Europe / Sebastiaan Broekhoven — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></li>
+			</ul>
+		</details>
+
+		<section class="catalog-contact">
+			<div>
+				<p class="catalog-eyebrow">NEED A RECOMMENDATION?</p>
+				<h2>ไม่แน่ใจว่าจะเลือกอุปกรณ์แบบไหนดี?</h2>
+				<p>ทีมงานพร้อมช่วยแนะนำให้เหมาะกับการใช้งานของคุณ</p>
+			</div>
+			<a href="tel:025550199" class="btn btn-light rounded-pill px-4 py-3">โทร. 02-555-0199</a>
+		</section>
+	</section>
+</div>
+
+<style>
+	.network-catalog { --catalog-ink: #101a35; --catalog-blue: #1746ff; --catalog-muted: #74809a; background: #f7f9ff; }
+	.catalog-hero { position: relative; overflow: hidden; padding: 2rem 0 4.5rem; color: #fff; background: radial-gradient(circle at 82% 30%, #2467ff 0, transparent 27%), linear-gradient(120deg, #061747, #0b2f99 62%, #1746ff); }
+	.catalog-hero::after { position: absolute; top: -190px; right: 7%; width: 430px; height: 430px; border: 1px solid #ffffff24; border-radius: 50%; box-shadow: 0 0 0 45px #ffffff08, 0 0 0 95px #ffffff06; content: ""; pointer-events: none; }
+	.catalog-hero .container { position: relative; z-index: 1; }
+	.catalog-breadcrumb { margin-bottom: 3rem; }
+	.catalog-breadcrumb .breadcrumb-item, .catalog-breadcrumb .breadcrumb-item.active { color: #cedaff; }
+	.catalog-breadcrumb a { color: #fff; }
+	.catalog-breadcrumb .breadcrumb-item + .breadcrumb-item::before { color: #8fa7e8; }
+	.catalog-eyebrow { color: #80e5ff; font-size: .78rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+	.catalog-eyebrow span { display: inline-block; width: 7px; height: 7px; margin-right: .4rem; border-radius: 50%; background: #80e5ff; vertical-align: 1px; }
+	.catalog-hero h1 { margin: .8rem 0 1rem; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 600; line-height: 1.15; }
+	.catalog-lead { max-width: 520px; margin-bottom: 1.6rem; color: #d3ddff; font-size: 1.05rem; }
+	.catalog-hero-button { color: #1746ff; background: #fff; font-weight: 500; }
+	.catalog-hero-button:hover { color: #0e35d5; background: #edf2ff; }
+	.catalog-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 1.2rem 0; border-top: 1px solid #ffffff35; border-bottom: 1px solid #ffffff35; }
+	.catalog-stat { display: grid; gap: .1rem; padding: 0 .9rem; border-right: 1px solid #ffffff30; }
+	.catalog-stat:first-child { padding-left: 0; }
+	.catalog-stat:last-child { padding-right: 0; border: 0; }
+	.catalog-stat strong { font-size: 1.8rem; font-weight: 600; line-height: 1.2; }
+	.catalog-stat span { color: #d1dcff; font-size: .82rem; }
+	.catalog-content { padding-top: 3rem; padding-bottom: 4rem; }
+	.catalog-section-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+	.catalog-all-link { color: var(--catalog-blue); font-weight: 500; }
+	.sample-notice { margin: 0 0 1.25rem; padding: .8rem 1rem; border: 1px solid #f3dfaa; border-radius: 12px; color: #70531a; background: #fff9e9; font-size: .88rem; }
+	.sample-notice strong { font-weight: 600; }
+	.category-shortcuts { display: flex; gap: .65rem; overflow-x: auto; margin: 0 0 3.5rem; padding: .2rem .1rem .75rem; scrollbar-color: #b7c7ff transparent; }
+	.category-shortcuts a { display: flex; flex: 0 0 auto; align-items: center; gap: .55rem; padding: .75rem 1rem; border: 1px solid #e5eafa; border-radius: 999px; color: #354363; background: #fff; font-size: .9rem; transition: .2s ease; }
+	.category-shortcuts a:hover { border-color: #b6c7ff; color: var(--catalog-blue); box-shadow: 0 8px 20px #0e2e8110; transform: translateY(-2px); }
+	.category-shortcuts a > span { color: var(--catalog-blue); font-size: 1.05rem; }
+	.category-shortcuts small { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; color: #53607e; background: #f1f4fb; font-size: .72rem; }
+	.catalog-category { scroll-margin-top: 1.5rem; margin-bottom: 3.6rem; }
+	.category-heading { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.2rem; }
+	.category-heading-icon { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border-radius: 15px; color: var(--catalog-blue); background: #eaf0ff; font-size: 1.5rem; }
+	.category-index { margin: 0 0 .1rem; color: var(--catalog-muted); font-size: .68rem; font-weight: 600; letter-spacing: .14em; }
+	.category-heading h2 { margin: 0; color: var(--catalog-ink); font-size: 1.3rem; font-weight: 600; }
+	.category-count { margin-left: auto; padding: .4rem .8rem; border: 1px solid #e5eafa; border-radius: 999px; color: #5b6782; background: #fff; font-size: .8rem; }
+	.equipment-card { overflow: hidden; border: 1px solid #e8edf7; border-radius: 20px; background: #fff; box-shadow: 0 5px 20px #12204d08; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+	.equipment-card:hover { border-color: #c4d1f6; box-shadow: 0 18px 36px #12204d12; transform: translateY(-5px); }
+	.equipment-image { position: relative; display: grid; height: 190px; place-items: center; overflow: hidden; background: linear-gradient(145deg, #f7f9ff, #edf2ff); }
+	.equipment-image::after { position: absolute; right: 17%; bottom: -60px; width: 150px; height: 100px; border-radius: 50%; background: #dbe5ff80; content: ""; filter: blur(2px); }
+	.equipment-image img { position: relative; z-index: 1; width: 76%; height: 78%; object-fit: contain; transition: transform .25s ease; }
+	.equipment-card:hover .equipment-image img { transform: scale(1.05); }
+	.equipment-id, .stock-pill { position: absolute; z-index: 2; top: .8rem; padding: .35rem .65rem; border-radius: 999px; font-size: .7rem; font-weight: 500; }
+	.equipment-id { left: .8rem; color: #5d6984; background: #fff; }
+	.sample-flag { position: absolute; z-index: 2; bottom: .8rem; left: .8rem; padding: .3rem .6rem; border-radius: 999px; color: #70531a; background: #fff3cc; font-size: .68rem; font-weight: 500; }
+	.stock-pill { right: .8rem; display: inline-flex; align-items: center; gap: .35rem; }
+	.stock-pill span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+	.is-available { color: #20734a; background: #e6f7ee; }
+	.is-unavailable { color: #6a7180; background: #eef0f4; }
+	.equipment-details { padding: 1.15rem 1.2rem 1.2rem; }
+	.equipment-details h3 { min-height: 3rem; margin: 0 0 1rem; color: var(--catalog-ink); font-size: 1rem; font-weight: 500; line-height: 1.5; }
+	.equipment-footer { display: flex; align-items: end; justify-content: space-between; gap: .5rem; padding-bottom: .95rem; border-bottom: 1px solid #edf0f7; }
+	.price-caption, .stock-count > span { color: var(--catalog-muted); font-size: .72rem; }
+	.equipment-price { margin: .1rem 0 0; color: var(--catalog-ink); font-size: 1.2rem; font-weight: 600; }
+	.stock-count { display: grid; justify-items: end; }
+	.stock-count strong { color: #354363; font-size: .9rem; font-weight: 600; }
+	.stock-count small { color: var(--catalog-muted); font-size: .72rem; font-weight: 400; }
+	.equipment-action { display: flex; justify-content: space-between; padding-top: .8rem; color: var(--catalog-blue); font-size: .85rem; font-weight: 500; }
+	.image-note { margin: -1.5rem 0 1rem; color: var(--catalog-muted); font-size: .8rem; }
+	.image-credits { margin-bottom: 2rem; padding: 1rem 1.2rem; border: 1px solid #e5eafa; border-radius: 14px; color: #53607e; background: #fff; font-size: .8rem; }
+	.image-credits summary { color: var(--catalog-ink); cursor: pointer; font-weight: 500; }
+	.image-credits ul { display: grid; gap: .45rem; margin: .8rem 0 0; padding-left: 1.2rem; }
+	.image-credits a { color: var(--catalog-blue); }
+	.catalog-contact { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1rem; padding: 2rem clamp(1.3rem, 4vw, 3rem); border-radius: 22px; color: #fff; background: linear-gradient(115deg, #071b5b, #1746ff); }
+	.catalog-contact .catalog-eyebrow { margin-bottom: .5rem; }
+	.catalog-contact h2 { margin: 0 0 .4rem; font-size: clamp(1.25rem, 2.5vw, 1.7rem); font-weight: 600; }
+	.catalog-contact p:last-child { margin: 0; color: #d5e0ff; }
+	@media (max-width: 575.98px) {
+		.catalog-hero { padding-bottom: 3.2rem; }
+		.catalog-breadcrumb { margin-bottom: 2rem; }
+		.catalog-stats { margin-top: .8rem; }
+		.catalog-stat { padding: 0 .55rem; }
+		.catalog-stat strong { font-size: 1.5rem; }
+		.catalog-stat span { font-size: .72rem; }
+		.category-shortcuts { margin-bottom: 2.5rem; }
+		.equipment-image { height: 170px; }
+		.catalog-contact { align-items: start; flex-direction: column; }
+	}
+</style>
