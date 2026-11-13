@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-11-13T02:41:02Z",
+  "generatedOnPlatform": "win32",
+  "projectType": "server",
+  "setup": [
+    {
+      "command": "npm",
+      "args": ["ci"],
+      "timeoutSeconds": 600
+    }
+  ],
+  "assertions": [
+    {
+      "name": "server-entry-syntax",
+      "kind": "process",
+      "command": "node",
+      "args": ["--check", "index.js"],
+      "verificationMethod": "exit-code",
+      "expected": "0"
+    },
+    {
+      "name": "home-route-200",
+      "kind": "http-probe",
+      "startCommand": "node",
+      "startArgs": ["index.js"],
+      "url": "http://localhost:8888/",
+      "verificationMethod": "http-status",
+      "expected": "200"
+    },
+    {
+      "name": "about-route-200",
+      "kind": "http-probe",
+      "startCommand": "node",
+      "startArgs": ["index.js"],
+      "url": "http://localhost:8888/about",
+      "verificationMethod": "http-status",
+      "expected": "200"
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "npm",
+      "args": ["test"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 300
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="รู้จัก SAPPHIRE TECH บริษัทเทคโนโลยีที่พร้อมช่วยพัฒนาธุรกิจด้วยโซลูชันดิจิทัลและบริการที่ใส่ใจ">
+	<title>เกี่ยวกับเรา | SAPPHIRE TECH</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--navy: #101b3d;
+			--blue: #4263eb;
+			--cyan: #62d7e8;
+			--muted: #64708a;
+			--surface: #f5f7fc;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			font-family: "Segoe UI", Tahoma, sans-serif;
+			color: var(--navy);
+			line-height: 1.7;
+			background: #fff;
+		}
+		a { color: inherit; }
+		.container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+		header {
+			position: sticky;
+			top: 0;
+			z-index: 5;
+			background: rgba(255,255,255,.95);
+			border-bottom: 1px solid #e8ebf3;
+			backdrop-filter: blur(12px);
+		}
+		.nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+		.brand { color: var(--navy); text-decoration: none; font-weight: 800; letter-spacing: .11em; font-size: 1.12rem; }
+		.brand span { color: var(--blue); }
+		nav { display: flex; align-items: center; gap: 28px; }
+		nav a { text-decoration: none; color: #536078; font-size: .95rem; }
+		nav a:hover, nav a[aria-current="page"] { color: var(--blue); }
+		.hero {
+			position: relative;
+			overflow: hidden;
+			padding: 92px 0 96px;
+			color: #fff;
+			background: linear-gradient(120deg, #101b3d 5%, #243c80 62%, #4263eb 100%);
+		}
+		.hero::after {
+			content: "";
+			position: absolute;
+			width: 430px;
+			height: 430px;
+			right: -90px;
+			top: -190px;
+			border: 1px solid rgba(255,255,255,.2);
+			border-radius: 50%;
+			box-shadow: 0 0 0 45px rgba(255,255,255,.04), 0 0 0 90px rgba(255,255,255,.035);
+		}
+		.hero-content { position: relative; z-index: 1; max-width: 700px; }
+		.eyebrow { color: var(--cyan); text-transform: uppercase; letter-spacing: .16em; font-size: .8rem; font-weight: 700; }
+		h1 { margin: 12px 0 18px; font-size: clamp(2.4rem, 6vw, 4.3rem); line-height: 1.12; }
+		.hero p { max-width: 630px; margin: 0; color: #e0e7ff; font-size: 1.1rem; }
+		section { padding: 76px 0; }
+		.intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+		h2 { margin: 0 0 16px; font-size: clamp(1.8rem, 3vw, 2.45rem); line-height: 1.25; }
+		.intro p, .section-lead { color: var(--muted); }
+		.intro p { margin: 0 0 12px; }
+		.quote { padding: 30px; border-radius: 18px; background: var(--surface); border-left: 4px solid var(--blue); }
+		.quote strong { display: block; margin-bottom: 8px; color: var(--blue); font-size: 1.1rem; }
+		.quote p { margin: 0; }
+		.services { background: var(--surface); }
+		.section-heading { max-width: 650px; margin-bottom: 34px; }
+		.section-lead { margin: 0; }
+		.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+		.card { padding: 26px; border: 1px solid #e7eaf2; border-radius: 16px; background: #fff; }
+		.icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 16px; border-radius: 13px; color: var(--blue); background: #edf1ff; font-size: 1.2rem; font-weight: 800; }
+		.card h3 { margin: 0 0 8px; font-size: 1.13rem; }
+		.card p { margin: 0; color: var(--muted); font-size: .95rem; }
+		.contact { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
+		.contact-details { display: grid; gap: 14px; }
+		.contact-item { padding: 18px 20px; border: 1px solid #e7eaf2; border-radius: 12px; }
+		.contact-item strong { display: block; margin-bottom: 3px; }
+		.contact-item a { color: var(--blue); text-decoration: none; }
+		.contact-item a:hover { text-decoration: underline; }
+		.contact-note { margin-top: 20px; padding: 18px; border-radius: 12px; color: #465473; background: #f5f7fc; font-size: .92rem; }
+		footer { padding: 24px 0; color: #c9d2ee; background: var(--navy); font-size: .9rem; }
+		footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+		@media (max-width: 760px) {
+			.nav { min-height: 68px; }
+			nav { gap: 16px; }
+			.hero { padding: 72px 0; }
+			.intro, .contact { grid-template-columns: 1fr; gap: 28px; }
+			.cards { grid-template-columns: 1fr; }
+			section { padding: 58px 0; }
+		}
+		@media (max-width: 440px) {
+			.container { width: min(100% - 28px, 1120px); }
+			.brand { font-size: .95rem; }
+			nav { gap: 12px; }
+			nav a { font-size: .85rem; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="container nav">
+			<a class="brand" href="/" aria-label="SAPPHIRETECH หน้าหลัก">SAPPHIRE<span>TECH</span></a>
+			<nav aria-label="เมนูหลัก">
+				<a href="/">หน้าหลัก</a>
+				<a href="/about" aria-current="page">เกี่ยวกับเรา</a>
+				<a href="/about#contact">ติดต่อเรา</a>
+			</nav>
+		</div>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="container hero-content">
+				<div class="eyebrow">About SAPPHIRETECH</div>
+				<h1>เทคโนโลยีที่ดี<br>เริ่มจากความเข้าใจ</h1>
+				<p>SAPPHIRETECH มุ่งนำเทคโนโลยีมาช่วยให้ธุรกิจทำงานได้อย่างมีประสิทธิภาพ พร้อมสร้างประสบการณ์ดิจิทัลที่ตอบโจทย์ผู้ใช้งาน</p>
+			</div>
+		</section>
+
+		<section>
+			<div class="container intro">
+				<div>
+					<div class="eyebrow" style="color: var(--blue)">Who we are</div>
+					<h2>รู้จัก SAPPHIRETECH</h2>
+					<p>เราเป็นทีมที่สนใจการแก้ปัญหาด้วยเทคโนโลยี ตั้งแต่การวางแนวทาง ออกแบบ ไปจนถึงพัฒนาโซลูชันให้เหมาะกับเป้าหมายและการทำงานของแต่ละองค์กร</p>
+					<p>เราเชื่อว่าระบบที่ดีไม่ใช่แค่ทันสมัย แต่ต้องใช้งานได้จริง ขยายต่อได้ และช่วยให้ผู้คนทำงานได้ง่ายขึ้น</p>
+				</div>
+				<div class="quote">
+					<strong>แนวทางของเรา</strong>
+					<p>รับฟังโจทย์ให้ชัดเจน ทำงานร่วมกันอย่างโปร่งใส และใส่ใจคุณภาพในทุกขั้นตอน เพื่อให้เทคโนโลยีสร้างคุณค่าได้อย่างยั่งยืน</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="services">
+			<div class="container">
+				<div class="section-heading">
+					<div class="eyebrow" style="color: var(--blue)">What we do</div>
+					<h2>สิ่งที่เราพร้อมช่วยคุณ</h2>
+					<p class="section-lead">บริการด้านดิจิทัลที่ปรับให้เหมาะกับความต้องการและเป้าหมายของธุรกิจ</p>
+				</div>
+				<div class="cards">
+					<article class="card">
+						<div class="icon" aria-hidden="true">01</div>
+						<h3>พัฒนาเว็บไซต์และระบบ</h3>
+						<p>ออกแบบและพัฒนาเว็บไซต์หรือระบบงาน ให้เหมาะกับกระบวนการและผู้ใช้งานของคุณ</p>
+					</article>
+					<article class="card">
+						<div class="icon" aria-hidden="true">02</div>
+						<h3>โซลูชันดิจิทัล</h3>
+						<p>ช่วยวางแนวทางและเลือกใช้เทคโนโลยี เพื่อสนับสนุนการทำงานและการเติบโตขององค์กร</p>
+					</article>
+					<article class="card">
+						<div class="icon" aria-hidden="true">03</div>
+						<h3>ให้คำปรึกษาและดูแลระบบ</h3>
+						<p>ให้คำแนะนำด้านเทคนิค พร้อมช่วยดูแลและปรับปรุงระบบให้ทำงานได้อย่างต่อเนื่อง</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="contact">
+			<div class="container contact">
+				<div>
+					<div class="eyebrow" style="color: var(--blue)">Get in touch</div>
+					<h2>มาคุยเรื่องไอเดียของคุณ</h2>
+					<p class="section-lead">มีคำถามหรือต้องการสอบถามบริการ ติดต่อทีม SAPPHIRETECH ได้ตามช่องทางด้านล่าง</p>
+				</div>
+				<div>
+					<div class="contact-details">
+						<div class="contact-item">
+							<strong>อีเมล</strong>
+							<a href="mailto:contact@sapphiretech.com">contact@sapphiretech.com</a>
+						</div>
+						<div class="contact-item">
+							<strong>โทรศัพท์</strong>
+							<a href="tel:+66020000000">02-000-0000</a>
+						</div>
+					</div>
+					<div class="contact-note">กรุณาตรวจสอบและแก้ไขอีเมลกับหมายเลขโทรศัพท์ให้เป็นข้อมูลติดต่อจริงของบริษัทก่อนเผยแพร่เว็บไซต์</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="container">
+			<span>© <span id="year"></span> SAPPHIRETECH. สงวนลิขสิทธิ์</span>
+			<a href="/" style="color: inherit; text-decoration: none">กลับหน้าหลัก</a>
+		</div>
+	</footer>
+	<script>
+		document.getElementById('year').textContent = new Date().getFullYear();
+	</script>
+</body>
+</html>
